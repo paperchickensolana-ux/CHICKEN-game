@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#06174d" />
+  <title>CHICKEN TO THE MOON</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section id="home" class="screen home-screen">
+      <div class="overlay"></div>
+      <div class="home-content">
+        <div class="brand">CHICKEN</div>
+        <h1>TO THE MOON 🚀</h1>
+        <p>Vole, collecte les SOL et évite les astéroïdes.</p>
+        <button id="playBtn" class="primary">🎮 PLAY NOW</button>
+        <button id="howBtn" class="secondary">📖 HOW TO PLAY</button>
+        <div class="mini-stats">
+          <span>🏆 High score: <b id="menuHighScore">0</b></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen hidden">
+      <header class="hud">
+        <div>⭐ Score: <b id="score">0</b></div>
+        <div>🪙 SOL: <b id="coins">0</b></div>
+        <div>🏆 Best: <b id="highScore">0</b></div>
+      </header>
+
+      <canvas id="game" width="960" height="540" aria-label="Chicken To The Moon game"></canvas>
+
+      <div class="mobile-controls">
+        <button id="upBtn">⬆️ FLY</button>
+        <button id="downBtn">⬇️ DOWN</button>
+      </div>
+
+      <button id="backBtn" class="back-btn">← MENU</button>
+    </section>
+
+    <section id="howScreen" class="screen hidden panel-screen">
+      <div class="panel">
+        <h2>HOW TO PLAY</h2>
+        <p>🟢 Flèche ↑ / W / Espace : monter</p>
+        <p>🔵 Flèche ↓ / S : descendre</p>
+        <p>🪙 Collecte les pièces SOL pour gagner des points.</p>
+        <p>☄️ Évite les astéroïdes. Une collision = Game Over.</p>
+        <p>📱 Sur mobile, utilise les boutons FLY et DOWN.</p>
+        <button id="howBackBtn" class="primary">RETOUR</button>
+      </div>
+    </section>
+
+    <div id="gameOver" class="modal hidden">
+      <div class="modal-card">
+        <h2>GAME OVER</h2>
+        <p>Score: <b id="finalScore">0</b></p>
+        <p>SOL collectés: <b id="finalCoins">0</b></p>
+        <button id="restartBtn" class="primary">🚀 REJOUER</button>
+        <button id="menuBtn" class="secondary">MENU</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

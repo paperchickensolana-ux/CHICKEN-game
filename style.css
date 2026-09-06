@@ -11,7 +11,7 @@ button { font: inherit; cursor: pointer; border: none; }
 .home-screen {
   background:
     linear-gradient(rgba(2,8,39,.25), rgba(2,8,39,.58)),
-    url("assets/chicken-cover.png") center/cover no-repeat;
+    url("chicken-cover.png") center/cover no-repeat;
 }
 .overlay { position:absolute; inset:0; background: radial-gradient(circle at center, transparent 25%, rgba(1,8,38,.55) 100%); }
 .home-content {

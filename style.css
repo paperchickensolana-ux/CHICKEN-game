@@ -1,0 +1,87 @@
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; font-family: Arial, Helvetica, sans-serif; background: #03113e; color: white; }
+body { overflow-x: hidden; }
+button { font: inherit; cursor: pointer; border: none; }
+
+.app { min-height: 100vh; }
+.screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+.hidden { display: none !important; }
+
+.home-screen {
+  background:
+    linear-gradient(rgba(2,8,39,.25), rgba(2,8,39,.58)),
+    url("assets/chicken-cover.png") center/cover no-repeat;
+}
+.overlay { position:absolute; inset:0; background: radial-gradient(circle at center, transparent 25%, rgba(1,8,38,.55) 100%); }
+.home-content {
+  position: relative; z-index: 2; text-align: center; max-width: 720px;
+  padding: 28px; margin: 20px; border-radius: 28px;
+  background: rgba(3,13,63,.70); backdrop-filter: blur(5px);
+  box-shadow: 0 0 40px rgba(0,220,255,.35);
+  border: 2px solid rgba(71,231,255,.65);
+}
+.brand {
+  font-size: clamp(48px, 10vw, 100px); font-weight: 1000; line-height: .9;
+  color: #ffd738; text-shadow: 0 5px 0 #e65b00, 0 0 18px #26e8ff;
+}
+h1 { margin: 10px 0; font-size: clamp(30px, 6vw, 64px); }
+.home-content p { font-size: 18px; }
+
+.primary, .secondary {
+  min-width: 220px; padding: 16px 24px; margin: 7px; border-radius: 16px;
+  font-weight: 900; transition: transform .12s ease, filter .12s ease;
+}
+.primary { background: linear-gradient(#ffe84a, #ffae00); color: #3b1600; box-shadow: 0 5px 0 #ba5a00; }
+.secondary { background: linear-gradient(#28e9ff, #1672ff); color: white; box-shadow: 0 5px 0 #003a9b; }
+.primary:hover, .secondary:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+.mini-stats { margin-top: 15px; font-size: 18px; }
+
+#gameScreen {
+  flex-direction: column;
+  background: radial-gradient(circle at 50% 40%, #12358c, #030c35 70%);
+  padding: 12px;
+}
+.hud {
+  width: min(960px, 100%); display: flex; justify-content: space-between; gap: 10px;
+  padding: 12px 18px; margin-bottom: 8px;
+  background: rgba(6,20,75,.85); border: 2px solid #28e9ff; border-radius: 16px;
+  font-size: clamp(14px, 2vw, 20px); box-shadow: 0 0 20px rgba(40,233,255,.2);
+}
+canvas {
+  width: min(960px, 100%); height: auto; aspect-ratio: 16 / 9;
+  border: 3px solid #28e9ff; border-radius: 20px;
+  box-shadow: 0 0 28px rgba(40,233,255,.28);
+  background: #06174d;
+  touch-action: none;
+}
+.mobile-controls { display: flex; gap: 12px; margin-top: 10px; }
+.mobile-controls button, .back-btn {
+  padding: 12px 18px; border-radius: 14px; font-weight: 900; color: white;
+  background: #154fc4; border: 2px solid #43e7ff;
+}
+.back-btn { margin-top: 10px; background: #5320a9; }
+
+.panel-screen { background: radial-gradient(circle, #153a9d, #030c35 75%); padding: 24px; }
+.panel {
+  max-width: 650px; width: 100%; padding: 32px; border-radius: 24px;
+  background: rgba(3,14,62,.92); border: 2px solid #28e9ff;
+  box-shadow: 0 0 30px rgba(40,233,255,.25);
+}
+.panel h2 { font-size: 42px; margin-top: 0; color: #ffd738; }
+
+.modal {
+  position: fixed; inset: 0; z-index: 20; display: grid; place-items: center;
+  background: rgba(0,0,0,.7); padding: 20px;
+}
+.modal-card {
+  text-align:center; min-width:min(430px, 95vw); padding: 32px;
+  border-radius: 26px; background:#071750; border:3px solid #ffcf24;
+  box-shadow:0 0 40px rgba(255,207,36,.35);
+}
+.modal-card h2 { font-size: 44px; margin:0 0 15px; color:#ffcf24; }
+
+@media (min-width: 900px) {
+  .mobile-controls { display:none; }
+}

@@ -253,9 +253,12 @@ function update(dt) {
   coinItems = coinItems.filter(c => {
     const hit = circleRectCollision(c.x, c.y + Math.sin(c.bob) * 5, c.r, hitbox);
     if (hit) {
-      coins += 1;
-      score += 50;
-      return false;
+     if (hit) {
+  coins += 1;
+  score += 50;
+  playSound("coin");
+  return false;
+}
     }
     return true;
   });

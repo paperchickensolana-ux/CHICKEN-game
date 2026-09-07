@@ -151,9 +151,13 @@ function resetGame() {
 }
 
 function startGame() {
+  playSound("start");
   showScreen(gameScreen);
   resetGame();
-}
+}playSound("coin");
+}function endGame() {
+  playSound("hit");
+  running = false;
 
 function endGame() {
   running = false;

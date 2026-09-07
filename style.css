@@ -82,6 +82,70 @@ canvas {
 }
 .modal-card h2 { font-size: 44px; margin:0 0 15px; color:#ffcf24; }
 
-@media (min-width: 900px) {
+@media (min-width: 900px) {/* ===== GAME ACTION BUTTONS ===== */
+
+.game-actions {
+  width: min(960px, 100%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.game-actions button {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 900;
+  color: white;
+  background: #154fc4;
+  border: 2px solid #43e7ff;
+  box-shadow:
+    0 0 12px rgba(67, 231, 255, 0.45),
+    inset 0 0 12px rgba(67, 231, 255, 0.12);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.game-actions button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+  box-shadow:
+    0 0 20px rgba(67, 231, 255, 0.7),
+    inset 0 0 14px rgba(67, 231, 255, 0.15);
+}
+
+#leaderboardBtn {
+  background: #1647a8;
+}
+
+#walletBtn {
+  background: #087a68;
+}
+
+#settingsBtn {
+  background: #244a88;
+}
+
+#gameHowBtn {
+  background: #1a5ca8;
+}
+
+#backBtn {
+  background: #5320a9;
+  border-color: #8d6cff;
+  box-shadow: 0 0 15px rgba(141, 108, 255, 0.45);
+}
+
+@media (max-width: 700px) {
+  .game-actions {
+    gap: 8px;
+  }
+
+  .game-actions button {
+    flex: 1 1 45%;
+    padding: 11px 10px;
+    font-size: 13px;
+  }
+}
   .mobile-controls { display:none; }
 }

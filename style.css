@@ -137,7 +137,7 @@ canvas {
 }
 
 @media (max-width: 700px) {
-  .game-actions { 
+  . game-actions {
     gap: 8px;
   }
 

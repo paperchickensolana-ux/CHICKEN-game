@@ -151,7 +151,8 @@ function startGame() {
   }
 }
 
-function endGame() {
+function endGame() {running = false;
+cancelAnimationFrame(animationId);
 
   const s = Math.floor(score);
 

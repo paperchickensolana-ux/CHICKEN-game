@@ -1,4 +1,79 @@
+// ===== SOUND SYSTEM =====
 
+let audioCtx = null;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
+
+  return audioCtx;
+}
+
+function playSound(type) {
+  if (localStorage.getItem("soundEnabled") === "false") return;
+
+  const audio = getAudioContext();
+  const oscillator = audio.createOscillator();
+  const gain = audio.createGain();
+
+  oscillator.connect(gain);
+  gain.connect(audio.destination);
+
+  const now = audio.currentTime;
+
+  if (type === "coin") {
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(700, now);
+    oscillator.frequency.exponentialRampToValueAtTime(1100, now + 0.12);
+
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.15);
+  }
+
+  else if (type === "hit") {
+    oscillator.type = "sawtooth";
+    oscillator.frequency.setValueAtTime(180, now);
+    oscillator.frequency.exponentialRampToValueAtTime(55, now + 0.3);
+
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.3);
+  }
+
+  else if (type === "start") {
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(350, now);
+    oscillator.frequency.setValueAtTime(500, now + 0.08);
+    oscillator.frequency.setValueAtTime(750, now + 0.16);
+
+    gain.gain.setValueAtTime(0.08, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.25);
+  }
+
+  else if (type === "button") {
+    oscillator.type = "sine";
+    oscillator.frequency.value = 420;
+
+    gain.gain.setValueAtTime(0.05, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.08);
+  }
+}
 const home = document.getElementById("home");
 const gameScreen = document.getElementById("gameScreen");
 const howScreen = document.getElementById("howScreen");

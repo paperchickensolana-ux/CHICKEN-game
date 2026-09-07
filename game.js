@@ -122,7 +122,7 @@ r: rand(1, 2.8),
 s: rand(20, 95)
 }));
 }
-resetStars();
+function resetGame() {
 
 function showScreen(which) {
 home.classList.add("hidden");

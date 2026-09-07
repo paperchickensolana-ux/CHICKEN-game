@@ -245,7 +245,11 @@ function update(dt) {
 
   for (const a of asteroids) {
     if (circleRectCollision(a.x, a.y, a.r * 0.72, hitbox)) {
-      endGame();
+      endGame(if (circleRectCollision(...)) {
+  playSound("hit");
+  endGame();
+  return;
+});
       return;
     }
   }

@@ -122,15 +122,6 @@ function resetStars() {
     s: rand(20, 95)
   }));
 }
-resetStars();
-
-function showScreen(which) {
-  home.classList.add("hidden");
-  gameScreen.classList.add("hidden");
-  howScreen.classList.add("hidden");
-  which.classList.remove("hidden");
-}
-
 function resetGame() {
   running = true;
   lastTime = performance.now();
@@ -138,6 +129,33 @@ function resetGame() {
   coinTimer = 0;
   score = 0;
   coins = 0;
+  speed = 300;
+
+  asteroids = [];
+  coinItems = [];
+
+  player.y = 270;
+  player.vy = 0;
+
+  scoreEl.textContent = "0";
+  coinsEl.textContent = "0";
+
+  gameOverBox.classList.add("hidden");
+
+  cancelAnimationFrame(animationId);
+  animationId = requestAnimationFrame(loop);
+}
+
+function startGame() {
+  showScreen(gameScreen);
+  resetGame();
+
+  try {
+    playSound("start");
+  } catch (e) {
+    console.log("Sound error:", e);
+  }
+}
   speed = 300;
   asteroids = [];
 function startGame() {

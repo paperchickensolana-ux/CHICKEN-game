@@ -140,16 +140,29 @@ function resetGame() {
   coins = 0;
   speed = 300;
   asteroids = [];
-  coinItems = [];
-  player.y = canvas.height / 2;
-  player.vy = 0;
-  scoreEl.textContent = "0";
-  coinsEl.textContent = "0";
-  gameOverBox.classList.add("hidden");
-  cancelAnimationFrame(animationId);
-  animationId = requestAnimationFrame(loop);
+ function startGame() {
+  playSound("start");
+  showScreen(gameScreen);
+  resetGame();
 }
 
+function endGame() {
+  running = false;
+  cancelAnimationFrame(animationId);
+
+  const s = Math.floor(score);
+
+  if (s > highScore) {
+    highScore = s;
+    localStorage.setItem("chickenHighScore", String(highScore));
+  }
+
+  highScoreEl.textContent = highScore;
+  menuHighScoreEl.textContent = highScore;
+  finalScoreEl.textContent = s;
+  finalCoinsEl.textContent = coins;
+  gameOverBox.classList.remove("hidden");
+}
 function startGame() {
   playSound("start");
   showScreen(gameScreen);

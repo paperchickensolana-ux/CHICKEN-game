@@ -163,11 +163,6 @@ function endGame() {
   finalCoinsEl.textContent = coins;
   gameOverBox.classList.remove("hidden");
 }
-function startGame() {
-  playSound("start");
-  showScreen(gameScreen);
-  resetGame();
-}playSound("coin");
 
   playSound("hit");
   running = false;

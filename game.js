@@ -378,4 +378,89 @@ document.getElementById("menuBtn").addEventListener("click", () => {
   showScreen(home);
 });
 
-draw();
+draw();// ===== NEW GAME BUTTONS =====
+
+// LEADERBOARD
+const leaderboardBtn = document.getElementById("leaderboardBtn");
+
+if (leaderboardBtn) {
+  leaderboardBtn.addEventListener("click", () => {
+    running = false;
+
+    const bestScore = localStorage.getItem("highScore") || 0;
+
+    alert(
+      "🏆 LEADERBOARD\n\n" +
+      "1. CHICKEN — " + bestScore + "\n" +
+      "2. MOON PLAYER — 850\n" +
+      "3. PUMP KING — 600"
+    );
+  });
+}
+
+
+// CONNECT WALLET
+const walletBtn = document.getElementById("walletBtn");
+
+if (walletBtn) {
+  walletBtn.addEventListener("click", async () => {
+
+    if (window.solana && window.solana.isPhantom) {
+      try {
+        const response = await window.solana.connect();
+        const address = response.publicKey.toString();
+
+        walletBtn.textContent =
+          "✅ " + address.slice(0, 4) + "..." + address.slice(-4);
+
+      } catch (error) {
+        alert("Connexion annulée.");
+      }
+
+    } else {
+      alert("Installe Phantom Wallet pour connecter ton wallet Solana.");
+    }
+  });
+}
+
+
+// SETTINGS
+const settingsBtn = document.getElementById("settingsBtn");
+
+if (settingsBtn) {
+  settingsBtn.addEventListener("click", () => {
+
+    const soundEnabled =
+      localStorage.getItem("soundEnabled") !== "false";
+
+    const answer = confirm(
+      "⚙️ SETTINGS\n\n" +
+      "Son actuellement : " +
+      (soundEnabled ? "ON 🔊" : "OFF 🔇") +
+      "\n\nClique OK pour changer."
+    );
+
+    if (answer) {
+      localStorage.setItem(
+        "soundEnabled",
+        soundEnabled ? "false" : "true"
+      );
+
+      alert(
+        "Son : " +
+        (soundEnabled ? "OFF 🔇" : "ON 🔊")
+      );
+    }
+  });
+}
+
+
+// HOW TO PLAY
+const gameHowBtn = document.getElementById("gameHowBtn");
+
+if (gameHowBtn) {
+  gameHowBtn.addEventListener("click", () => {
+   
+    showScreen(howScreen);
+  });
+}

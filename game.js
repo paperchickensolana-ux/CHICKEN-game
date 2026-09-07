@@ -165,7 +165,6 @@ function endGame() {
 }
 
 
-
 function circleRectCollision(cx, cy, cr, r) {
   const closestX = Math.max(r.x, Math.min(cx, r.x + r.w));
   const closestY = Math.max(r.y, Math.min(cy, r.y + r.h));

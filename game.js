@@ -155,7 +155,7 @@ function startGame() {
   showScreen(gameScreen);
   resetGame();
 }playSound("coin");
-}function endGame() {
+
   playSound("hit");
   running = false;
 

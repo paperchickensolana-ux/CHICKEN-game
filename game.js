@@ -164,23 +164,7 @@ function endGame() {
   gameOverBox.classList.remove("hidden");
 }
 
-  playSound("hit");
-  running = false;
 
-function endGame() {
-  running = false;
-  cancelAnimationFrame(animationId);
-  const s = Math.floor(score);
-  if (s > highScore) {
-    highScore = s;
-    localStorage.setItem("chickenHighScore", String(highScore));
-  }
-  highScoreEl.textContent = highScore;
-  menuHighScoreEl.textContent = highScore;
-  finalScoreEl.textContent = s;
-  finalCoinsEl.textContent = coins;
-  gameOverBox.classList.remove("hidden");
-}
 
 function circleRectCollision(cx, cy, cr, r) {
   const closestX = Math.max(r.x, Math.min(cx, r.x + r.w));

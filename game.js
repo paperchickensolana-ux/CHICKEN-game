@@ -244,15 +244,12 @@ function update(dt) {
   const hitbox = { x: player.x + 8, y: player.y + 7, w: player.w - 16, h: player.h - 14 };
 
   for (const a of asteroids) {
-    if (circleRectCollision(a.x, a.y, a.r * 0.72, hitbox)) {
-      endGame(if (circleRectCollision(...)) {
-  playSound("hit");
-  endGame();
-  return;
-});
-      return;
-    }
+  if (circleRectCollision(a.x, a.y, a.r * 0.72, hitbox)) {
+    playSound("hit");
+    endGame();
+    return;
   }
+}
 
   coinItems = coinItems.filter(c => {
     const hit = circleRectCollision(c.x, c.y + Math.sin(c.bob) * 5, c.r, hitbox);

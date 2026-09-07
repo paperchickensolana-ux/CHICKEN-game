@@ -140,15 +140,18 @@ function resetGame() {
   coins = 0;
   speed = 300;
   asteroids = [];
- function startGame() {
-  playSound("start");
+function startGame() {
   showScreen(gameScreen);
   resetGame();
+
+  try {
+    playSound("start");
+  } catch (e) {
+    console.log("Sound error:", e);
+  }
 }
 
 function endGame() {
-  running = false;
-  cancelAnimationFrame(animationId);
 
   const s = Math.floor(score);
 

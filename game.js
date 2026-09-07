@@ -122,54 +122,66 @@ r: rand(1, 2.8),
 s: rand(20, 95)
 }));
 }
-function resetGame() {
-
 function showScreen(which) {
-home.classList.add("hidden");
-gameScreen.classList.add("hidden");
-howScreen.classList.add("hidden");
-which.classList.remove("hidden");
+  home.classList.add("hidden");
+  gameScreen.classList.add("hidden");
+  howScreen.classList.add("hidden");
+  which.classList.remove("hidden");
 }
 
 function resetGame() {
-running = true;
-lastTime = performance.now();
-asteroidTimer = 0;
-coinTimer = 0;
-score = 0;
-coins = 0;
-speed = 300;
-asteroids = [];
-function startGame() {
-showScreen(gameScreen);
-resetGame();
+  running = true;
+  lastTime = performance.now();
+  asteroidTimer = 0;
+  coinTimer = 0;
+  score = 0;
+  coins = 0;
+  speed = 300;
 
-try {
-playSound("start");
-} catch (e) {
-console.log("Sound error:", e);
+  asteroids = [];
+  coinItems = [];
+
+  player.y = 270;
+  player.vy = 0;
+
+  scoreEl.textContent = "0";
+  coinsEl.textContent = "0";
+
+  gameOverBox.classList.add("hidden");
+
+  cancelAnimationFrame(animationId);
+  animationId = requestAnimationFrame(loop);
 }
+
+function startGame() {
+  showScreen(gameScreen);
+  resetGame();
+
+  try {
+    playSound("start");
+  } catch (e) {
+    console.log("Sound error:", e);
+  }
 }
 
 function endGame() {
-function endGame() {running = false;
-cancelAnimationFrame(animationId);
+  running = false;
+  cancelAnimationFrame(animationId);
 
-const s = Math.floor(score);
+  const s = Math.floor(score);
 
-if (s > highScore) {
-highScore = s;
-localStorage.setItem("chickenHighScore", String(highScore));
+  if (s > highScore) {
+    highScore = s;
+    localStorage.setItem("chickenHighScore", String(highScore));
+  }
+
+  highScoreEl.textContent = highScore;
+  menuHighScoreEl.textContent = highScore;
+  finalScoreEl.textContent = s;
+  finalCoinsEl.textContent = coins;
+
+  gameOverBox.classList.remove("hidden");
 }
-
-highScoreEl.textContent = highScore;
-menuHighScoreEl.textContent = highScore;
-finalScoreEl.textContent = s;
-finalCoinsEl.textContent = coins;
-gameOverBox.classList.remove("hidden");
-}
-
-
 function circleRectCollision(cx, cy, cr, r) {
 const closestX = Math.max(r.x, Math.min(cx, r.x + r.w));
 const closestY = Math.max(r.y, Math.min(cy, r.y + r.h));

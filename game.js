@@ -513,7 +513,30 @@ alert("Installe Phantom Wallet pour connecter ton wallet Solana.");
 }
 });
 }
+// CLAIM CHICKEN
+const claimBtn = document.getElementById("claimBtn");
 
+if (claimBtn) {
+  claimBtn.addEventListener("click", () => {
+
+    if (!window.solana || !window.solana.isConnected) {
+      alert("🔗 Connecte ton wallet Phantom d'abord.");
+      return;
+    }
+
+    if (coins < 100) {
+      alert("🐔 Il faut au moins 100 SOL coins pour réclamer 1,000 CHICKEN.");
+      return;
+    }
+
+    alert(
+      "🎁 CLAIM READY!\n\n" +
+      "Wallet : " + window.solana.publicKey.toString() + "\n" +
+      "Récompense : 1,000 CHICKEN\n\n" +
+      "Le paiement réel sera activé à l'étape suivante."
+    );
+  });
+}
 
 // SETTINGS
 const settingsBtn = document.getElementById("settingsBtn");

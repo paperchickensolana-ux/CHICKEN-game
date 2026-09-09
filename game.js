@@ -524,8 +524,8 @@ if (claimBtn) {
       return;
     }
 
-    if (coins < 100) {
-      alert("🐔 Il faut au moins 100 SOL coins pour réclamer 1,000 CHICKEN.");
+    if (coins < 10) {
+      alert("🐔 Il faut au moins 10 SOL coins pour réclamer 1,000 CHICKEN.");
       return;
     }
 

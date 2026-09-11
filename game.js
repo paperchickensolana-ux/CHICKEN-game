@@ -513,68 +513,63 @@ alert("Installe Phantom Wallet pour connecter ton wallet Solana.");
 }
 });
 }
-// CLAIM CHICKEN
+//// CLAIM CHICKEN
 const claimBtn = document.getElementById("claimBtn");
 
 if (claimBtn) {
-  claimBtn.addEventListener("click", () => {
+  claimBtn.addEventListener("click", async () => {
 
     if (!window.solana || !window.solana.isConnected) {
       alert("🔗 Connecte ton wallet Phantom d'abord.");
       return;
     }
 
-    if (coins < 10) {
-      alert("🐔 Il faut au moins 10 SOL coins pour réclamer 1,000 CHICKEN.");
+    if (coins < 30) {
+      alert("🐔 Il faut au moins 30 SOL coins pour réclamer 1,000 CHICKEN.");
       return;
     }
 
-    alert(
-      "🎁 CLAIM READY!\n\n" +
-      "Wallet : " + window.solana.publicKey.toString() + "\n" +
-      "Récompense : 1,000 CHICKEN\n\n" +
-      "Le paiement réel sera activé à l'étape suivante."
-    );
+    const wallet = window.solana.publicKey.toString();
+
+    try {
+      claimBtn.disabled = true;
+      claimBtn.textContent = "⏳ CLAIM...";
+
+      const response = await fetch(
+        "https://chicken-game-brown.vercel.app/api/claim",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            wallet: wallet,
+            coins: coins
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert("❌ " + (data.error || "Erreur pendant le claim."));
+        return;
+      }
+
+      alert(
+        "✅ CLAIM ENREGISTRÉ!\n\n" +
+        "Wallet : " + wallet + "\n" +
+        "Récompense : 1,000 CHICKEN\n" +
+        "Status : pending\n\n" +
+        "Aucun token réel n'a encore été envoyé."
+      );
+
+    } catch (error) {
+      console.error("Claim error:", error);
+      alert("❌ Impossible de contacter le serveur.");
+    } finally {
+      claimBtn.disabled = false;
+      claimBtn.textContent = "🎁 CLAIM CHICKEN";
+    }
   });
-}
-
-// SETTINGS
-const settingsBtn = document.getElementById("settingsBtn");
-
-if (settingsBtn) {
-settingsBtn.addEventListener("click", () => {
-
-const soundEnabled =
-localStorage.getItem("soundEnabled") !== "false";
-
-const answer = confirm(
-"⚙️ SETTINGS\n\n" +
-"Son actuellement : " +
-(soundEnabled ? "ON 🔊" : "OFF 🔇") +
-"\n\nClique OK pour changer."
-);
-
-if (answer) {
-localStorage.setItem(
-"soundEnabled",
-soundEnabled ? "false" : "true"
-);
-
-alert(
-"Son : " +
-(soundEnabled ? "OFF 🔇" : "ON 🔊")
-);
-}
-});
-}
-
-
-// HOW TO PLAY
-const gameHowBtn = document.getElementById("gameHowBtn");
-
-if (gameHowBtn) {
-gameHowBtn.addEventListener("click", () => {
-
-showScreen(howScreen);
-});
 }

@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const allowedOrigins = [
     "https://paperchickensolana-ux.github.io",
     "https://chicken-game-brown.vercel.app"
@@ -40,12 +40,68 @@ export default function handler(req, res) {
     });
   }
 
-  return res.status(200).json({
-    success: true,
-    wallet: wallet,
-    coins: coins,
-    reward: 1000,
-    payoutEnabled: false,
-    message: "CHICKEN claim API fonctionne"
-  });
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
+
+  if (!supabaseUrl || !supabaseSecretKey) {
+    return res.status(500).json({
+      success: false,
+      error: "Configuration Supabase manquante"
+    });
+  }
+
+  try {
+    const response = await fetch(
+      `${supabaseUrl}/rest/v1/rpc/reserve_chicken_claim`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseSecretKey
+        },
+        body: JSON.stringify({
+          p_wallet: wallet
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Supabase error:", data);
+
+      return res.status(500).json({
+        success: false,
+        error: "Erreur Supabase"
+      });
+    }
+
+    const result = Array.isArray(data) ? data[0] : data;
+
+    if (!result || result.allowed !== true) {
+      return res.status(429).json({
+        success: false,
+        error: "Claim déjà effectué dans les dernières 24 heures",
+        reason: result?.reason || "cooldown_24h"
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      wallet,
+      reward: 1000,
+      claimId: result.claim_id,
+      status: "pending",
+      payoutEnabled: false,
+      message: "Claim réservé dans Supabase"
+    });
+
+  } catch (error) {
+    console.error("Claim API error:", error);
+
+    return res.status(500).json({
+      success: false,
+      error: "Erreur serveur"
+    });
+  }
 }
